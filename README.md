@@ -1,1 +1,3 @@
-# dotnet-spa
+# dotnet-oidc
+
+Bare minimum OIDC example
