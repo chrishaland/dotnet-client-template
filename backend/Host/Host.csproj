@@ -10,18 +10,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Haland.DotNetTrace" Version="1.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.2">
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
+    <PackageReference Include="NWebsec.AspNetCore.Middleware" Version="3.0.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.0.5" />
   </ItemGroup>
 
   <ItemGroup>

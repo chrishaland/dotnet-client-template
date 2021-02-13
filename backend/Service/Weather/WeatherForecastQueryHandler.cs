@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Service;
 using System;
@@ -9,8 +8,6 @@ using System.Threading.Tasks;
 
 namespace Host.Controllers
 {
-    [Authorize]
-    [ApiController]
     [Route("api/weatherforecast")]
     public class WeatherForecastQueryHandler : QueryHandlerBase<WeatherForecastRequest, WeatherForecastResponse>
     {
@@ -26,8 +23,10 @@ namespace Host.Controllers
             _logger = logger;
         }
 
-        public override async Task<ActionResult<WeatherForecastResponse>> Execute([FromBody] WeatherForecastRequest request, CancellationToken ct)
+        public override async Task<ActionResult<WeatherForecastResponse>> Execute([FromBody]WeatherForecastRequest request, CancellationToken ct)
         {
+            _logger.LogDebug("Getting some random weather");
+
             var rng = new Random();
             var weatherForecasts = Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {

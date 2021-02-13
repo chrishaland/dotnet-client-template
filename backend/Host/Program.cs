@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -71,6 +72,7 @@ namespace Host
             .CreateDefaultBuilder(args)
             .UseSerilog(ConfigureSerilog)
             .ConfigureWebHostDefaults(webBuilder => webBuilder
+                .ConfigureKestrel(ConfigureKestrel)
                 .ConfigureAppConfiguration(ConfigureAppConfiguration)
                 .UseStartup<Startup>()
             );
@@ -87,6 +89,12 @@ namespace Host
             await database.Database.MigrateAsync();
             _logger.Information("Migrated database");
         }
+
+        private static void ConfigureKestrel(KestrelServerOptions options)
+        {
+            options.AddServerHeader = false;
+        }
+
         private static void ConfigureAppConfiguration(WebHostBuilderContext context, IConfigurationBuilder config)
         {
             void SetConfigurationBasePath()

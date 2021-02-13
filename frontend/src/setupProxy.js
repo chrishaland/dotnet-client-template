@@ -8,4 +8,18 @@ module.exports = function(app) {
       xfwd: true
     })
   );
+  app.use(
+    '/swagger',
+    createProxyMiddleware({
+      target: 'http://localhost:5000',
+      xfwd: true
+    })
+  );
+  app.use(
+    '/docs',
+    createProxyMiddleware({
+      target: 'http://localhost:5000',
+      xfwd: true
+    })
+  );
 };

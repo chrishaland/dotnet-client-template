@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { cqrs } from '../libraries/cqrs';
 
 export class FetchData extends Component {
   static displayName = FetchData.name;
@@ -52,13 +53,7 @@ export class FetchData extends Component {
   }
 
   async populateWeatherData() {
-    const response = await fetch('api/weatherforecast', { 
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({})
-    });
+    const response = await cqrs('api/weatherforecast', {});
     const data = await response.json();
     this.setState({ forecasts: data.weatherForecasts, loading: false });
   }
