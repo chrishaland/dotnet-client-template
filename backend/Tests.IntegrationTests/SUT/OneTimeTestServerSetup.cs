@@ -50,8 +50,6 @@ public class OneTimeTestServerSetup
 
     private static Dictionary<string, string> ConfigurationValues => new Dictionary<string, string> 
     {
-        { "oidc:clientId", "id" },
-        { "oidc:clientSecret", "secret" },
-        { "oidc:authorityUri", "http://localhost" }
+        //
     };
 }

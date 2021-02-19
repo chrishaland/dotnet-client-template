@@ -39,6 +39,9 @@ namespace Host
 
         private void AddOpenIdConnectAuthentication(IServiceCollection services)
         {
+            var authorityUri = Configuration.GetValue<string>("oidc:authorityUri");
+            if (string.IsNullOrEmpty(authorityUri)) return;
+
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -54,7 +57,7 @@ namespace Host
             .AddOpenIdConnect(options =>
             {
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.Authority = Configuration.GetValue<string>("oidc:authorityUri");
+                options.Authority = authorityUri;
                 options.ClientId = Configuration.GetValue<string>("oidc:clientId");
                 options.ClientSecret = Configuration.GetValue<string>("oidc:clientSecret");
                 options.CallbackPath = "/api/account/signin-oidc";
@@ -78,10 +81,14 @@ namespace Host
             });
 
             app.UseReferrerPolicy(options => options.NoReferrer());
+
             app.UseRedirectValidation(options =>
             {
                 options.AllowSameHostRedirectsToHttps();
-                options.AllowedDestinations(Configuration.GetValue<string>("oidc:authorityUri"));
+                
+                var authorityUri = Configuration.GetValue<string>("oidc:authorityUri");
+                if (string.IsNullOrEmpty(authorityUri)) return;
+                options.AllowedDestinations(authorityUri);
             });
 
             app.UseXContentTypeOptions();
