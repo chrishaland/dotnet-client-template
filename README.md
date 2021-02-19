@@ -1,3 +1,1 @@
-# dotnet-oidc
-
-Bare minimum OIDC example
+# dotnet-client template
