@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace Service.Authentication
 {
@@ -23,8 +24,12 @@ namespace Service.Authentication
         [Authorize(AuthenticationSchemes = OpenIdConnectDefaults.AuthenticationScheme)]
         public async Task<ActionResult> Execute([FromQuery] string? returnUrl, CancellationToken ct)
         {
-            var accessToken = await HttpContext.GetTokenAsync("access_token");
-            _logger.LogInformation("User logged in. Access token:\n{AccessToken}", accessToken);
+            var userId =  User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userEmail =  User.FindFirstValue(ClaimTypes.Email);
+            
+            _logger.LogInformation("User logged in. Id: '{UserId}', E-mail: '{UserEmail}'.", userId, userEmail);
+            
+            await Task.CompletedTask;
             return LocalRedirect(returnUrl ?? "/fetch-data");
         }
     }
