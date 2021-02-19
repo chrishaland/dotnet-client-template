@@ -1,6 +1,6 @@
 using System;
 
-namespace Host
+namespace Service.Weather
 {
     public class WeatherForecastRequest
     {

@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Service;
 using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Host.Controllers
+namespace Service.Weather
 {
     [Route("api/weatherforecast")]
     public class WeatherForecastQueryHandler : QueryHandlerBase<WeatherForecastRequest, WeatherForecastResponse>

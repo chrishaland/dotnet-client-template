@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using Serilog;
+using Tests.IntegrationTests;
 
 [SetUpFixture]
 public class OneTimeTestServerSetup
@@ -45,11 +48,12 @@ public class OneTimeTestServerSetup
         .UseStartup<Host.Startup>()
         .ConfigureTestServices(services =>
         {
-            //
+            services.AddAuthentication("BasicAuthentication")
+                    .AddScheme<AuthenticationSchemeOptions, MockAuthenticatedUser>("BasicAuthentication", null);
         });
 
     private static Dictionary<string, string> ConfigurationValues => new Dictionary<string, string> 
     {
-        //
+        
     };
 }
