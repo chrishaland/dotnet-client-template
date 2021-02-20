@@ -14,6 +14,8 @@ using Haland.DotNetTrace;
 using Serilog;
 using System;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Repository;
 
 namespace Host
 {
@@ -31,6 +33,15 @@ namespace Host
         public void ConfigureServices(IServiceCollection services)
         {
             AddOpenIdConnectAuthentication(services);
+
+            var connectionString = Configuration.GetConnectionString("Database");
+            if (!string.IsNullOrEmpty(connectionString))
+            {
+                services.AddDbContext<Database>(options =>
+                {
+                    options.UseSqlServer(connectionString);
+                });
+            }
 
             services.AddTracing();
             services.AddSwaggerGen();

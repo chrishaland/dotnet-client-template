@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
@@ -28,7 +29,7 @@ namespace Service
 
     public sealed record CommandResponse
     {
-        public int? Id { get; }
-        public CommandResponse(int? id = null) => (Id) = (id);
+        public Guid? Id { get; }
+        public CommandResponse(Guid? id = null) => (Id) = (id);
     }
 }

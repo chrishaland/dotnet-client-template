@@ -11,10 +11,9 @@ namespace Tests.IntegrationTests
     public class Weather_forecast_query_handler_tests
     {
         [Test]
-        public async Task Authenticated_request_should_not_be_unauthorized()
+        public async Task Get_weather_forecasts()
         {
             var request = new HttpRequestMessage(HttpMethod.Post, "/api/weatherforecast");
-            request.Headers.Authorization = new AuthenticationHeaderValue("BasicAuthentication");
             var (response, content) = await SUT.SendHttpRequest<WeatherForecastResponse>(request, new { });
 
             Assert.Multiple(() =>

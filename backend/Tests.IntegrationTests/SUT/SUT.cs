@@ -1,7 +1,7 @@
-﻿using System.IO;
+﻿using Repository;
+using System.IO;
 using System.Net.Http;
 using System.Text;
-using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -9,6 +9,8 @@ namespace Tests.IntegrationTests
 {
     public static class SUT
     {
+        internal static Database Database => OneTimeTestServerSetup.Database;
+
         internal static async Task<(HttpResponseMessage message, T content)> SendHttpRequest<T>(HttpRequestMessage request, object data = null) where T : class
         {
             var (response, contentString) = await SendHttpRequest(request, data);
