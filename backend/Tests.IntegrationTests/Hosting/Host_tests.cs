@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
-namespace Tests.IntegrationTests
+namespace Tests.IntegrationTests.Hosting
 {
     [TestFixture]
     public class Host_tests

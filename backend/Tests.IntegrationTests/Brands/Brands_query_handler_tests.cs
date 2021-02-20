@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Microsoft.EntityFrameworkCore;
+using NUnit.Framework;
 using Repository.Models;
 using Service.Brands;
 using System;
@@ -13,7 +14,7 @@ namespace Tests.IntegrationTests
     public class Brands_query_handler_tests
     {
         [Test]
-        public async Task Get_brands()
+        public async Task Should_get_all_brands_from_the_database()
         {
             var brand1 = SUT.Database.Brands.Add(new Brand { Name = "TESTLA" });
             var brand2 = SUT.Database.Brands.Add(new Brand { Name = "BMVV" });
@@ -35,6 +36,22 @@ namespace Tests.IntegrationTests
                 Assert.That(dto2.Id, Is.Not.EqualTo(Guid.Empty));
                 Assert.That(dto2.Id, Is.EqualTo(brand2.Entity.Id));
                 Assert.That(dto2.Name, Is.EqualTo(brand2.Entity.Name));
+            });
+        }
+
+        [Test]
+        public async Task Should_return_empty_list_when_no_brands_in_database()
+        {
+            await SUT.Database.DeleteAllAsync<Brand>();
+            
+            var request = new HttpRequestMessage(HttpMethod.Post, "/api/brands/query");
+            var (response, content) = await SUT.SendHttpRequest<BrandsQueryResponse>(request, new { });
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+                Assert.That(content.Brands, Is.Not.Null);
+                CollectionAssert.IsEmpty(content.Brands);
             });
         }
     }
